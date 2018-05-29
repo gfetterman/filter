@@ -97,8 +97,8 @@ void filter_file(FILE* input, size_t num_chan, size_t num_coeffs, float* a_coeff
 }
 
 void print_usage(void) {
-    printf("usage: quickfilt [-h] file channels -a a0 [a1 ...] -b b0 [b1 ...]\n\n");
-    printf("Filter a file in-place using given coefficients.\n\n");
+    printf("usage: filter [-h] file channels -a a0 [a1 ...] -b b0 [b1 ...]\n\n");
+    printf("Filter a file (left to right) in-place using given coefficients.\n\n");
     printf("positional arguments:\n");
     printf("  file              name of file to filter\n");
     printf("  channels          number of channels in file (positive integer)\n");
