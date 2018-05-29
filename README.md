@@ -15,6 +15,8 @@ coefficients must be the same.
 Note that an FIR filter can be applied by setting all `-a` (autoregressive)
 coefficients to `0.0` except for the first, which is set to `1.0`.
 
+The beginning of the file is zero-padded for the filter's initial state.
+
 ## Usage
 
 ```
