@@ -66,9 +66,13 @@ void filter_file(FILE* input, size_t num_chan, size_t num_coeffs, float* a_coeff
                 buff_loc = hist_size + samp_idx * num_chan + chan_idx;
                 acc = b_coeffs[0] * input_ringbuf[irb_idx * num_chan + chan_idx];
                 for (int coeff_idx = 1; coeff_idx < num_coeffs; coeff_idx++) {
-                    // it's ((num_coeffs + irb_idx - coeff_idx) % num_coeffs) because in C, -1 % 5 == -1, not 4
-                    acc += b_coeffs[coeff_idx] * input_ringbuf[((num_coeffs + irb_idx - coeff_idx) % num_coeffs) * num_chan + chan_idx];
-                    acc -= a_coeffs[coeff_idx] * buffer[buff_loc - (coeff_idx * num_chan)];
+                    if (b_coeffs[coeff_idx] != 0.0) {
+                        // it's ((num_coeffs + irb_idx - coeff_idx) % num_coeffs) because in C, -1 % 5 == -1, not 4
+                        acc += b_coeffs[coeff_idx] * input_ringbuf[((num_coeffs + irb_idx - coeff_idx) % num_coeffs) * num_chan + chan_idx];
+                    }
+                    if (a_coeffs[coeff_idx] != 0.0) {
+                        acc -= a_coeffs[coeff_idx] * buffer[buff_loc - (coeff_idx * num_chan)];
+                    }
                 }
                 acc = acc / a_coeffs[0];
                 acc = (acc > INT16_MAX) ? INT16_MAX : acc;
