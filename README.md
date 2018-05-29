@@ -17,9 +17,15 @@ coefficients to `0.0` except for the first, which is set to `1.0`.
 
 The beginning of the file is zero-padded for the filter's initial state.
 
+Only files containing 16-bit signed integer data are supported.
+
 ## Usage
 
 ```
 $ filter [file] [channels] -a a0 [a1 a2 ...] -b b0 [b1 b2 ...]
 ```
- 
+
+## Acknowledgments
+
+`filter` was partially inspired by [develancer](http://github.com/develancer)'s
+[`filtfilt`](http://github.com/develancer/filtfilt).
