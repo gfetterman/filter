@@ -1,5 +1,4 @@
 #include <inttypes.h>
-#include <math.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -72,8 +71,8 @@ void filter_file(FILE* input, size_t num_chan, size_t num_coeffs, float* a_coeff
                     acc -= a_coeffs[coeff_idx] * buffer[buff_loc - (coeff_idx * num_chan)];
                 }
                 acc = acc / a_coeffs[0];
-                acc = fmax(acc, INT16_MIN);
-                acc = fmin(acc, INT16_MAX);
+                acc = (acc > INT16_MAX) ? INT16_MAX : acc;
+                acc = (acc < INT16_MIN) ? INT16_MIN : acc;
                 buffer[buff_loc] = acc;
             }
             // (circularly) update the index into the ring buffer
